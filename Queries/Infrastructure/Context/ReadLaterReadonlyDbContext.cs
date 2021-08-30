@@ -14,8 +14,7 @@
 
         public IQueryable<TEntity> AllNoTrackedOf<TEntity>() where TEntity : Entity
         {
-            throw new System.Exception();
-            //return Set<TEntity>().AsNoTracking().Where(x => x.DeletedOn == null);
+            return Set<TEntity>().AsNoTracking().Where(x => x.DeletedOn == null);
         }
 
         public IQueryable<TEntity> SetOf<TEntity>() where TEntity : Entity
