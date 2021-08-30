@@ -1,19 +1,19 @@
-﻿using Data;
-using Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Services
+﻿namespace Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Data;
+
+    using Entity;
+
     public class CategoryService : ICategoryService
     {
-        private ReadLaterDataContext _ReadLaterDataContext;
-        public CategoryService(ReadLaterDataContext readLaterDataContext) 
+        private readonly ReadLaterDataContext _ReadLaterDataContext;
+
+        public CategoryService(ReadLaterDataContext readLaterDataContext)
         {
-            _ReadLaterDataContext = readLaterDataContext;            
+            _ReadLaterDataContext = readLaterDataContext;
         }
 
         public Category CreateCategory(Category category)
