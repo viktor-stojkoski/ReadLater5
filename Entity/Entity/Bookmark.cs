@@ -3,11 +3,8 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class Bookmark
+    public class Bookmark : Entity
     {
-        [Key]
-        public int ID { get; set; }
-
         [StringLength(maximumLength: 500)]
         public string URL { get; set; }
 
