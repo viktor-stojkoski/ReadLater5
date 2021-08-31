@@ -12,6 +12,9 @@
 
     using Shared.Mediator;
 
+    /// <summary>
+    /// Returns all categories.
+    /// </summary>
     public record GetCategoriesQuery() : IQuery<Category> { }
 
     public class GetCategoriesQueryHandler : IQueryHandler<GetCategoriesQuery, Category>

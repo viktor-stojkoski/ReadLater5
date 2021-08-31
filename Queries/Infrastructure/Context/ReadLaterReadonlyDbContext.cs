@@ -27,6 +27,7 @@
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new BookmarkConfiguration());
         }
     }
 }

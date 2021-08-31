@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using Queries.Entities;
+    using Queries.Features.Bookmark.GetBookmarks;
     using Queries.Features.Category.GetCategories;
 
     using Shared.Mediator;
@@ -27,6 +28,15 @@
                 await _readLaterPublisher.ExecuteAsync(new GetCategoriesQuery());
 
             return Ok(category);
+        }
+
+        [HttpGet("bookmarks")]
+        public async Task<IActionResult> GetBookmarks()
+        {
+            Bookmark bookmark =
+                await _readLaterPublisher.ExecuteAsync(new GetBookmarksQuery());
+
+            return Ok(bookmark);
         }
     }
 }
