@@ -31,10 +31,10 @@
         public async Task<CategoryDto> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
         {
             CategoryDto category = await _dbContext.AllNoTrackedOf<Category>()
-                .Where(category => category.ID == request.Id)
+                .Where(category => category.Id == request.Id)
                 .Select(category => new CategoryDto
                 {
-                    ID = category.ID,
+                    Id = category.Id,
                     Name = category.Name
                 }).SingleOrDefaultAsync();
 

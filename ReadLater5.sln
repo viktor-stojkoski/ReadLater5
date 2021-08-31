@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadLater5", "ReadLater5\ReadLater5\ReadLater5.csproj", "{84780B99-1596-4333-9EDF-525D3682C02A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data\Data.csproj", "{6D9BB1AF-E56E-41BE-A145-53A90D1481DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage", "Data\Data\Storage.csproj", "{6D9BB1AF-E56E-41BE-A145-53A90D1481DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity", "Entity\Entity\Entity.csproj", "{CF657038-376E-4955-857E-784FF32D2E7B}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Cont
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queries", "Queries\Queries.csproj", "{FB57CFC6-1006-4AC6-BFDE-905CAA7FDE7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Common\Shared.csproj", "{6B60BC45-9B3A-4822-8EDE-714A559A5C27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Common\Shared.csproj", "{6B60BC45-9B3A-4822-8EDE-714A559A5C27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

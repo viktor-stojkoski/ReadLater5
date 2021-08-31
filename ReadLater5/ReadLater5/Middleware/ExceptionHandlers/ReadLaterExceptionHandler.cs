@@ -43,6 +43,7 @@
             int statusCode = ex switch
             {
                 ReadLaterNotFoundException => (int)HttpStatusCode.NotFound,
+                ReadLaterAlreadyExistsException => (int)HttpStatusCode.Conflict,
                 _ => (int)HttpStatusCode.InternalServerError
             };
 

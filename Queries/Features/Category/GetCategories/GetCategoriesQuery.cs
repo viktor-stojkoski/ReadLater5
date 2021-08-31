@@ -31,7 +31,7 @@
             return await _dbContext.AllNoTrackedOf<Category>()
                 .Select(category => new CategoryDto
                 {
-                    ID = category.ID,
+                    Id = category.Id,
                     Name = category.Name
                 }).ToListAsync();
         }

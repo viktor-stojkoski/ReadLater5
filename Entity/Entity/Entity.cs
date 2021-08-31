@@ -1,19 +1,19 @@
-﻿namespace Entity
-{
-    using System;
-    using System.ComponentModel.DataAnnotations;
+﻿//namespace Entity
+//{
+//    using System;
+//    using System.ComponentModel.DataAnnotations;
 
-    public abstract class Entity
-    {
-        protected Entity() { }
+//    public abstract class Entity
+//    {
+//        protected Entity() { }
 
-        [Key]
-        public int ID { get; protected set; }
+//        [Key]
+//        public int Id { get; set; }
 
-        public Guid Uid { get; protected set; }
+//        public Guid Uid { get; set; }
 
-        public DateTime CreatedOn { get; protected set; }
+//        public DateTime CreatedOn { get; set; }
 
-        public DateTime? DeletedOn { get; protected set; }
-    }
-}
+//        public DateTime? DeletedOn { get; set; }
+//    }
+//}

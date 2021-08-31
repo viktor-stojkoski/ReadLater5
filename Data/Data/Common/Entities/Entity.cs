@@ -1,29 +1,29 @@
-﻿namespace Queries.Common.Entities
+﻿namespace Storage.Common.Entities
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     public abstract class Entity
     {
         /// <summary>
         /// Entity's database id.
         /// </summary>
-        public int Id { get; set; }
+        [Key]
+        public int Id { get; protected internal set; }
 
         /// <summary>
         /// Entity's unique identifier.
         /// </summary>
-        public Guid Uid { get; set; }
+        public Guid Uid { get; protected internal set; }
 
         /// <summary>
         /// Entity's date and time of creation.
         /// </summary>
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; protected internal set; }
 
         /// <summary>
         /// Entity's date and time of deletion.
         /// </summary>
-        public DateTime? DeletedOn { get; set; }
-
-        protected Entity() { }
+        public DateTime? DeletedOn { get; protected internal set; }
     }
 }

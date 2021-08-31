@@ -5,7 +5,7 @@
         /// <summary>
         /// Category's id.
         /// </summary>
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Category's name

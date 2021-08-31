@@ -1,21 +1,21 @@
-﻿namespace Services
-{
-    using System.Collections.Generic;
+﻿//namespace Services
+//{
+//    using System.Collections.Generic;
 
-    using Entity;
+//    using CategoryEntity = Entity.Category;
 
-    public interface ICategoryService
-    {
-        Category CreateCategory(Category category);
+//    public interface ICategoryService
+//    {
+//        CategoryEntity CreateCategory(CategoryEntity category);
 
-        List<Category> GetCategories();
+//        List<CategoryEntity> GetCategories();
 
-        Category GetCategory(int Id);
+//        CategoryEntity GetCategory(int Id);
 
-        Category GetCategory(string Name);
+//        CategoryEntity GetCategory(string Name);
 
-        void UpdateCategory(Category category);
+//        void UpdateCategory(CategoryEntity category);
 
-        void DeleteCategory(Category category);
-    }
-}
+//        void DeleteCategory(CategoryEntity category);
+//    }
+//}

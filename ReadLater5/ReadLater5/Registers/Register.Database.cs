@@ -2,9 +2,8 @@
 {
     using System;
 
+    using Contracts.Infrastructure;
     using Contracts.Settings;
-
-    using Data;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -13,6 +12,10 @@
     using Queries.Infrastructure.Context;
 
     using ReadLater5.Settings;
+
+    using Storage;
+    using Storage.Infrastructure.Context;
+    using Storage.Infrastructure.UnitOfWork;
 
     public static partial class Register
     {
@@ -23,12 +26,12 @@
             IConnectionStringSettings connectionStringSettings =
                 new ConnectionStringSettings(configuration);
 
+            services.AddScoped<IReadLaterDbContext, ReadLaterDbContext>();
             services.AddScoped<IReadLaterReadonlyDbContext, ReadLaterReadonlyDbContext>();
 
-            // TODO: Implement this
-            //services.AddScoped<IReadLaterDbContext, ReadLaterDbContext>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddDbContext<ReadLaterDataContext>(options =>
+            services.AddDbContext<ReadLaterDbContext>(options =>
             {
                 options.UseSqlServer(
                     connectionString: connectionStringSettings.SqlConnectionString,
