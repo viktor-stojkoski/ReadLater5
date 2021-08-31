@@ -9,6 +9,7 @@ namespace ReadLater5
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
+    using ReadLater5.Middleware.ExceptionHandlers;
     using ReadLater5.Registers;
 
     using Services;
@@ -64,6 +65,8 @@ namespace ReadLater5
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMiddleware<ReadLaterExceptionHandler>();
 
             app.UseEndpoints(endpoints =>
             {

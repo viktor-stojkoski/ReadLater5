@@ -1,41 +1,43 @@
 ﻿namespace ReadLater5.Controllers
 {
-    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using Entity;
 
     using Microsoft.AspNetCore.Mvc;
 
+    using Queries.Features.Category.GetCategories;
+    using Queries.Features.Category.GetCategory;
+
     using Services;
+
+    using Shared.Mediator;
 
     public class CategoriesController : Controller
     {
         readonly ICategoryService _categoryService;
-        public CategoriesController(ICategoryService categoryService)
+        private readonly IReadLaterPublisher _readLaterPublisher;
+
+        public CategoriesController(
+            ICategoryService categoryService,
+            IReadLaterPublisher readLaterPublisher)
         {
             _categoryService = categoryService;
-        }
-        // GET: Categories
-        public IActionResult Index()
-        {
-            List<Category> model = _categoryService.GetCategories();
-            return View(model);
+            _readLaterPublisher = readLaterPublisher;
         }
 
-        // GET: Categories/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Index()
         {
-            if (id == null)
-            {
-                return new StatusCodeResult(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest);
-            }
-            Category category = _categoryService.GetCategory((int)id);
-            if (category == null)
-            {
-                return new StatusCodeResult(Microsoft.AspNetCore.Http.StatusCodes.Status404NotFound);
-            }
-            return View(category);
+            return View(
+                await _readLaterPublisher.ExecuteAsync(
+                    new GetCategoriesQuery()));
+        }
 
+        public async Task<IActionResult> Details(int id)
+        {
+            return View(
+                await _readLaterPublisher.ExecuteAsync(
+                    new GetCategoryQuery(id)));
         }
 
         // GET: Categories/Create
