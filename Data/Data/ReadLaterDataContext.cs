@@ -1,14 +1,10 @@
-﻿using Entity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Data
+﻿namespace Data
 {
+    using Entity;
+
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+
     public class ReadLaterDataContext : IdentityDbContext
 
     {
@@ -22,6 +18,7 @@ namespace Data
         }
 
         public DbSet<Category> Categories { get; set; }
+
         public DbSet<Bookmark> Bookmark { get; set; }
     }
 }

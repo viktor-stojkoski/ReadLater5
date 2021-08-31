@@ -1,10 +1,9 @@
-﻿namespace Entity
+﻿namespace Queries.Entities
 {
-    using System.ComponentModel.DataAnnotations;
+    using Queries.Common.Entities;
 
     public class Bookmark : Entity
     {
-        [StringLength(maximumLength: 500)]
         public string URL { get; set; }
 
         public string ShortDescription { get; set; }
