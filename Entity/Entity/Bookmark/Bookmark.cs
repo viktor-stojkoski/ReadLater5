@@ -76,5 +76,13 @@
             Url = urlValue;
             ShortDescription = shortDescription;
         }
+
+        /// <summary>
+        /// Marks bookmark as deleted.
+        /// </summary>
+        public void Delete(DateTime deletedOn)
+        {
+            DeletedOn = deletedOn;
+        }
     }
 }

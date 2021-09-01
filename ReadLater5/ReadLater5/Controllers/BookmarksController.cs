@@ -84,21 +84,21 @@
             return RedirectToAction("Details", new { request.Id });
         }
 
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    return View(
-        //        await _readLaterPublisher.ExecuteAsync(
-        //            new GetBookmarkQuery(id)));
-        //}
+        public async Task<IActionResult> Delete(int id)
+        {
+            return View(
+                await _readLaterPublisher.ExecuteAsync(
+                    new GetBookmarkQuery(id)));
+        }
 
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    await _readLaterPublisher.ExecuteAsync(
-        //        new DeleteBookmarkCommand(Id: id));
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _readLaterPublisher.ExecuteAsync(
+                new DeleteBookmarkCommand(Id: id));
 
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
     }
 }

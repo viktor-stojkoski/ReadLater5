@@ -56,7 +56,7 @@
         }
 
         /// <summary>
-        /// Deletes category.
+        /// Marks category as deleted.
         /// </summary>
         public void Delete(DateTime deletedOn)
         {
