@@ -6,12 +6,9 @@
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
-    using Microsoft.EntityFrameworkCore.Infrastructure;
 
     public interface IReadLaterDbContext : IDisposable
     {
-        DatabaseFacade Database { get; }
-
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
         DbSet<TEntity> Set<TEntity>() where TEntity : class;

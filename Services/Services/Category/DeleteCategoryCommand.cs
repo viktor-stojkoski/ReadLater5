@@ -13,6 +13,9 @@
 
     using Shared.Mediator;
 
+    /// <summary>
+    /// Deletes category.
+    /// </summary>
     public record DeleteCategoryCommand(int Id) : ICommand<Unit>;
 
     public class DeleteCategoryCommandHandler : ICommandHandler<DeleteCategoryCommand, Unit>

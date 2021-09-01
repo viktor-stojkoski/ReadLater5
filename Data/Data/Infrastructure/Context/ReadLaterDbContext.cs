@@ -1,9 +1,10 @@
-﻿namespace Storage
+﻿namespace Storage.Infrastructure.Context
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    using Storage.Infrastructure.Context;
+    using Storage.Bookmark.Entities;
+    using Storage.Category.Entities;
 
     public class ReadLaterDbContext : IdentityDbContext, IReadLaterDbContext
 
@@ -15,10 +16,8 @@
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Storage.Category.Entities.Category>()
-                .ToTable("Category");
-            modelBuilder.Entity<Storage.Bookmark.Entities.Bookmark>()
-                .ToTable("Bookmark");
+            modelBuilder.Entity<Category>().ToTable("Category");
+            modelBuilder.Entity<Bookmark>().ToTable("Bookmark");
         }
     }
 }
