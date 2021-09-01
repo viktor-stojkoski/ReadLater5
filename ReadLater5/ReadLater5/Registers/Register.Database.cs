@@ -2,8 +2,8 @@
 {
     using System;
 
-    using Shared.Infrastructure;
-    using Shared.Settings;
+    using Contracts.Infrastructure;
+    using Contracts.Settings;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -13,7 +13,6 @@
 
     using ReadLater5.Settings;
 
-    using Storage;
     using Storage.Infrastructure.Context;
     using Storage.Infrastructure.UnitOfWork;
 

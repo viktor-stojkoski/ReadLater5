@@ -2,14 +2,14 @@
 {
     using System.Threading.Tasks;
 
-    using Shared.Category.Repositories;
-    using Shared.Exceptions;
+    using Contracts.Category.Repositories;
 
     using Entity.Category;
 
     using Microsoft.EntityFrameworkCore;
 
     using Shared.ErrorCodes;
+    using Shared.Exceptions;
 
     using Storage.Category.Mappers;
     using Storage.Common.Repositories;

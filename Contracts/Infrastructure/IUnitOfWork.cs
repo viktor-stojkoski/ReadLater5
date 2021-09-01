@@ -1,4 +1,4 @@
-﻿namespace Shared.Infrastructure
+﻿namespace Contracts.Infrastructure
 {
     using System;
     using System.Threading.Tasks;

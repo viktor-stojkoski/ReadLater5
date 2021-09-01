@@ -3,14 +3,15 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    using Contracts.Category.Repositories;
+    using Contracts.Infrastructure;
+
     using Entity.Category;
 
     using MediatR;
 
-    using Shared.Category.Repositories;
     using Shared.ErrorCodes;
     using Shared.Exceptions;
-    using Shared.Infrastructure;
     using Shared.Mediator;
 
     /// <summary>

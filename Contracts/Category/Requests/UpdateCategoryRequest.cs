@@ -1,4 +1,4 @@
-﻿namespace Shared.Category.Requests
+﻿namespace Contracts.Category.Requests
 {
     using System.ComponentModel.DataAnnotations;
 

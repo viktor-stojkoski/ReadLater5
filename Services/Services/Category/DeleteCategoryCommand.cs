@@ -4,8 +4,8 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using Shared.Category.Repositories;
-    using Shared.Infrastructure;
+    using Contracts.Category.Repositories;
+    using Contracts.Infrastructure;
 
     using Entity.Category;
 

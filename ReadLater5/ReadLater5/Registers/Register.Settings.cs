@@ -1,6 +1,6 @@
 ﻿namespace ReadLater5.Registers
 {
-    using Shared.Settings;
+    using Contracts.Settings;
 
     using Microsoft.Extensions.DependencyInjection;
 

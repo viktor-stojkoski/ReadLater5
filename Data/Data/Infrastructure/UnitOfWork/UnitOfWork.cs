@@ -3,7 +3,7 @@
     using System;
     using System.Threading.Tasks;
 
-    using Shared.Infrastructure;
+    using Contracts.Infrastructure;
 
     using Storage.Infrastructure.Context;
 
@@ -41,6 +41,5 @@
                 _isDisposed = true;
             }
         }
-
     }
 }
