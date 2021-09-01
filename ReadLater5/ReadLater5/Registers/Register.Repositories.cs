@@ -1,6 +1,6 @@
 ﻿namespace ReadLater5.Registers
 {
-    using Contracts.Category.Repositories;
+    using Shared.Category.Repositories;
 
     using Microsoft.Extensions.DependencyInjection;
 

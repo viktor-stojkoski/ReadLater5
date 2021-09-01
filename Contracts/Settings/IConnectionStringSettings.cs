@@ -1,4 +1,4 @@
-﻿namespace Contracts.Settings
+﻿namespace Shared.Settings
 {
     public interface IConnectionStringSettings
     {

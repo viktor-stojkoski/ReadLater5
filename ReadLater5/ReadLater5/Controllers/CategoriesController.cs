@@ -2,8 +2,6 @@
 {
     using System.Threading.Tasks;
 
-    using Contracts.Category.Requests;
-
     using Microsoft.AspNetCore.Mvc;
 
     using Queries.Features.Category.GetCategories;
@@ -11,6 +9,7 @@
 
     using Services.Category;
 
+    using Shared.Category.Requests;
     using Shared.Mediator;
 
     public class CategoriesController : Controller
@@ -36,7 +35,6 @@
                     new GetCategoryQuery(id)));
         }
 
-        // GET: Categories/Create
         public IActionResult Create()
         {
             return View();
@@ -60,7 +58,7 @@
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(UpdateCategoryRequest request)
         {
             await _readLaterPublisher.ExecuteAsync(

@@ -4,14 +4,13 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using Contracts.Exceptions;
-
     using Microsoft.EntityFrameworkCore;
 
     using Queries.Entities;
     using Queries.Infrastructure.Context;
 
     using Shared.ErrorCodes;
+    using Shared.Exceptions;
     using Shared.Mediator;
 
     /// <summary>

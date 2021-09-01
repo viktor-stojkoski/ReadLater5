@@ -4,11 +4,11 @@
     using System.Net;
     using System.Threading.Tasks;
 
-    using Contracts.Exceptions;
-
     using Microsoft.AspNetCore.Http;
 
     using Newtonsoft.Json;
+
+    using Shared.Exceptions;
 
     public class ReadLaterExceptionHandler
     {
@@ -44,6 +44,7 @@
             {
                 ReadLaterNotFoundException => (int)HttpStatusCode.NotFound,
                 ReadLaterAlreadyExistsException => (int)HttpStatusCode.Conflict,
+                ReadLaterValidationException => (int)HttpStatusCode.BadRequest,
                 _ => (int)HttpStatusCode.InternalServerError
             };
 

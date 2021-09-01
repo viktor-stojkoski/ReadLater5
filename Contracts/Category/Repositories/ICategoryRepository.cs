@@ -1,4 +1,4 @@
-﻿namespace Contracts.Category.Repositories
+﻿namespace Shared.Category.Repositories
 {
     using System.Threading.Tasks;
 

@@ -2,8 +2,8 @@
 {
     using System;
 
-    using Contracts.Infrastructure;
-    using Contracts.Settings;
+    using Shared.Infrastructure;
+    using Shared.Settings;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;

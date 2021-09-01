@@ -3,7 +3,7 @@
     using System;
     using System.Threading.Tasks;
 
-    using Contracts.Infrastructure;
+    using Shared.Infrastructure;
 
     using Storage.Infrastructure.Context;
 

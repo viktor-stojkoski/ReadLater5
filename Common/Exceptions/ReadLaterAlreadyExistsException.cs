@@ -1,4 +1,4 @@
-﻿namespace Contracts.Exceptions
+﻿namespace Shared.Exceptions
 {
     using System;
 

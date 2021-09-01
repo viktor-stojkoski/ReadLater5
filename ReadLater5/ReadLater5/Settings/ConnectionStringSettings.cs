@@ -1,6 +1,6 @@
 ﻿namespace ReadLater5.Settings
 {
-    using Contracts.Settings;
+    using Shared.Settings;
 
     using Microsoft.Extensions.Configuration;
 

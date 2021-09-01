@@ -2,8 +2,8 @@
 {
     using System.Threading.Tasks;
 
-    using Contracts.Category.Repositories;
-    using Contracts.Exceptions;
+    using Shared.Category.Repositories;
+    using Shared.Exceptions;
 
     using Entity.Category;
 
