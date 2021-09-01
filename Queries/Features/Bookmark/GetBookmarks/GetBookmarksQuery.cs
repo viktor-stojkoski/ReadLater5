@@ -15,9 +15,9 @@
     /// <summary>
     /// Returns all bookmarks.
     /// </summary>
-    public record GetBookmarksQuery() : IQuery<Bookmark> { }
+    public record GetBookmarksQuery() : IQuery<IReadOnlyList<BookmarkDto>> { }
 
-    public class GetBookmarksQueryHandler : IQueryHandler<GetBookmarksQuery, Bookmark>
+    public class GetBookmarksQueryHandler : IQueryHandler<GetBookmarksQuery, IReadOnlyList<BookmarkDto>>
     {
         private readonly IReadLaterReadonlyDbContext _dbContext;
 
@@ -26,13 +26,16 @@
             _dbContext = dbContext;
         }
 
-        public async Task<Bookmark> Handle(GetBookmarksQuery request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<BookmarkDto>> Handle(GetBookmarksQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<Bookmark> dbBookmarks =
-                await _dbContext.SetOf<Bookmark>()
-                    .ToListAsync();
-
-            return dbBookmarks.First();
+            return await _dbContext.AllNoTrackedOf<Bookmark>()
+                .Select(bookmark => new BookmarkDto
+                {
+                    Id = bookmark.Id,
+                    Url = bookmark.Url,
+                    ShortDescription = bookmark.ShortDescription,
+                    CategoryId = bookmark.CategoryId
+                }).ToListAsync();
         }
     }
 }

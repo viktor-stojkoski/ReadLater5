@@ -2,23 +2,23 @@
 {
     using System.Threading.Tasks;
 
-    using Contracts.Category.Requests;
+    using Contracts.Bookmark.Requests;
 
     using Microsoft.AspNetCore.Mvc;
 
+    using Queries.Features.Bookmark.GetBookmark;
+    using Queries.Features.Bookmark.GetBookmarks;
     using Queries.Features.Category.GetCategories;
-    using Queries.Features.Category.GetCategory;
-    using Queries.Features.Category.GetCategoryByName;
 
-    using Services.Category;
+    using Services.Bookmark;
 
     using Shared.Mediator;
 
-    public class CategoriesController : Controller
+    public class BookmarksController : Controller
     {
         private readonly IReadLaterPublisher _readLaterPublisher;
 
-        public CategoriesController(IReadLaterPublisher readLaterPublisher)
+        public BookmarksController(IReadLaterPublisher readLaterPublisher)
         {
             _readLaterPublisher = readLaterPublisher;
         }
@@ -27,53 +27,59 @@
         {
             return View(
                 await _readLaterPublisher.ExecuteAsync(
-                    new GetCategoriesQuery()));
-        }
-
-        public async Task<IActionResult> GetCategoryByNameAsync(string name)
-        {
-            return Ok(
-                await _readLaterPublisher.ExecuteAsync(
-                    new GetCategoryByNameQuery(name)));
+                    new GetBookmarksQuery()));
         }
 
         public async Task<IActionResult> Details(int id)
         {
             return View(
                 await _readLaterPublisher.ExecuteAsync(
-                    new GetCategoryQuery(id)));
+                    new GetBookmarkQuery(id)));
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Categories =
+                await _readLaterPublisher.ExecuteAsync(
+                    new GetCategoriesQuery());
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateCategoryRequest request)
+        public async Task<IActionResult> Create(CreateBookmarkRequest request)
         {
             await _readLaterPublisher.ExecuteAsync(
-                new CreateCategoryCommand(request.Name));
+                new CreateBookmarkCommand(
+                    CategoryId: request.CategoryId,
+                    ShortDescription: request.ShortDescription,
+                    Url: request.Url));
 
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Edit(int id)
         {
+            ViewBag.Categories =
+                await _readLaterPublisher.ExecuteAsync(
+                    new GetCategoriesQuery());
+
             return View(
                 await _readLaterPublisher.ExecuteAsync(
-                    new GetCategoryQuery(id)));
+                    new GetBookmarkQuery(id)));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(UpdateCategoryRequest request)
+        public async Task<IActionResult> Edit(UpdateBookmarkRequest request)
         {
             await _readLaterPublisher.ExecuteAsync(
-                new UpdateCategoryCommand(
+                new UpdateBookmarkCommand(
                     Id: request.Id,
-                    Name: request.Name));
+                    Url: request.Url,
+                    ShortDescription: request.ShortDescription,
+                    CategoryId: request.CategoryId));
 
             return RedirectToAction("Details", new { request.Id });
         }
@@ -82,7 +88,7 @@
         {
             return View(
                 await _readLaterPublisher.ExecuteAsync(
-                    new GetCategoryQuery(id)));
+                    new GetBookmarkQuery(id)));
         }
 
         [HttpPost, ActionName("Delete")]
@@ -90,7 +96,7 @@
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _readLaterPublisher.ExecuteAsync(
-                new DeleteCategoryCommand(Id: id));
+                new DeleteBookmarkCommand(Id: id));
 
             return RedirectToAction("Index");
         }
