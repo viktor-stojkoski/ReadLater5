@@ -39,6 +39,7 @@
                     ShortDescription = bookmark.ShortDescription,
                     Category = new BookmarkCategoryDto
                     {
+                        Id = bookmark.Category.Id,
                         Name = bookmark.Category.Name
                     }
                 }).SingleOrDefaultAsync();

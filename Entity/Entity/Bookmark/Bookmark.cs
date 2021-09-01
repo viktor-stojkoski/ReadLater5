@@ -64,5 +64,17 @@
             Url = urlValue;
             ShortDescription = shortDescription;
         }
+
+        /// <summary>
+        /// Updates bookmark.
+        /// </summary>
+        public void Update(string url, string shortDescription, int? categoryId)
+        {
+            UrlValue urlValue = new(url);
+
+            CategoryId = categoryId;
+            Url = urlValue;
+            ShortDescription = shortDescription;
+        }
     }
 }

@@ -59,24 +59,30 @@
             return RedirectToAction("Index");
         }
 
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    return View(
-        //        await _readLaterPublisher.ExecuteAsync(
-        //            new GetBookmarkQuery(id)));
-        //}
+        public async Task<IActionResult> Edit(int id)
+        {
+            ViewBag.Categories =
+                await _readLaterPublisher.ExecuteAsync(
+                    new GetCategoriesQuery());
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(UpdateBookmarkRequest request)
-        //{
-        //    await _readLaterPublisher.ExecuteAsync(
-        //        new UpdateBookmarkCommand(
-        //            Id: request.Id,
-        //            Name: request.Name));
+            return View(
+                await _readLaterPublisher.ExecuteAsync(
+                    new GetBookmarkQuery(id)));
+        }
 
-        //    return RedirectToAction("Details", new { request.Id });
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(UpdateBookmarkRequest request)
+        {
+            await _readLaterPublisher.ExecuteAsync(
+                new UpdateBookmarkCommand(
+                    Id: request.Id,
+                    Url: request.Url,
+                    ShortDescription: request.ShortDescription,
+                    CategoryId: request.CategoryId));
+
+            return RedirectToAction("Details", new { request.Id });
+        }
 
         //public async Task<IActionResult> Delete(int id)
         //{

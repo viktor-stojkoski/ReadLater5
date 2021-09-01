@@ -35,7 +35,8 @@
                 @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
             </div>
 
-            <label class="control-label col-md-2">Pick a category</label>
+            @* CATEGORY *@
+            <label class="control-label col-md-2">Choose a category</label>
             <div class="col-md-10">
                 <select class="form-control" id="categorySelect" name="CategoryId">
                     @{
