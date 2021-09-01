@@ -1,10 +1,10 @@
-﻿namespace Entity
+﻿namespace Contracts.Category.Requests
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class Category : Entity
+    public class CreateCategoryRequest
     {
-        [StringLength(maximumLength: 50)]
+        [StringLength(50)]
         public string Name { get; set; }
     }
 }

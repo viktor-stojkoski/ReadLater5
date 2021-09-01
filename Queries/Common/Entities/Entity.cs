@@ -7,7 +7,7 @@
         /// <summary>
         /// Entity's database id.
         /// </summary>
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Entity's unique identifier.

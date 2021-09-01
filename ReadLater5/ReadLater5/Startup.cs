@@ -1,7 +1,5 @@
 namespace ReadLater5
 {
-    using Data;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -9,9 +7,10 @@ namespace ReadLater5
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
+    using ReadLater5.Middleware.ExceptionHandlers;
     using ReadLater5.Registers;
 
-    using Services;
+    using Storage.Infrastructure.Context;
 
     public class Startup
     {
@@ -28,6 +27,7 @@ namespace ReadLater5
             services
                 .RegisterSettings()
                 .RegisterDatabase(Configuration)
+                .RegisterRepositories()
                 .RegisterMediatr();
 
             //services.AddDbContext<ReadLaterDataContext>(options =>
@@ -36,9 +36,9 @@ namespace ReadLater5
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ReadLaterDataContext>();
+                .AddEntityFrameworkStores<ReadLaterDbContext>();
 
-            services.AddScoped<ICategoryService, CategoryService>();
+            //services.AddScoped<ICategoryService, CategoryService>();
 
             services.AddControllersWithViews();
         }
@@ -64,6 +64,8 @@ namespace ReadLater5
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseMiddleware<ReadLaterExceptionHandler>();
 
             app.UseEndpoints(endpoints =>
             {

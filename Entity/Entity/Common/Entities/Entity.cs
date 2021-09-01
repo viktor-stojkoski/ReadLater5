@@ -1,14 +1,12 @@
-﻿namespace Entity
+﻿namespace Entity.Common.Entities
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
 
     public abstract class Entity
     {
         protected Entity() { }
 
-        [Key]
-        public int ID { get; protected set; }
+        public int Id { get; protected set; }
 
         public Guid Uid { get; protected set; }
 

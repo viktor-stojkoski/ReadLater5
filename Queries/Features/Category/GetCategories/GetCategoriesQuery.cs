@@ -15,9 +15,9 @@
     /// <summary>
     /// Returns all categories.
     /// </summary>
-    public record GetCategoriesQuery() : IQuery<Category> { }
+    public record GetCategoriesQuery() : IQuery<IReadOnlyList<CategoryDto>> { }
 
-    public class GetCategoriesQueryHandler : IQueryHandler<GetCategoriesQuery, Category>
+    public class GetCategoriesQueryHandler : IQueryHandler<GetCategoriesQuery, IReadOnlyList<CategoryDto>>
     {
         private readonly IReadLaterReadonlyDbContext _dbContext;
 
@@ -26,13 +26,14 @@
             _dbContext = dbContext;
         }
 
-        public async Task<Category> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
+        public async Task<IReadOnlyList<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
-            IEnumerable<Category> dbCategory =
-                await _dbContext.SetOf<Category>()
-                    .ToListAsync();
-
-            return dbCategory.First();
+            return await _dbContext.AllNoTrackedOf<Category>()
+                .Select(category => new CategoryDto
+                {
+                    Id = category.Id,
+                    Name = category.Name
+                }).ToListAsync();
         }
     }
 }

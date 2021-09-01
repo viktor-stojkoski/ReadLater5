@@ -6,7 +6,6 @@
 
     using Queries.Entities;
     using Queries.Features.Bookmark.GetBookmarks;
-    using Queries.Features.Category.GetCategories;
 
     using Shared.Mediator;
 
@@ -21,14 +20,14 @@
             _readLaterPublisher = readLaterPublisher;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetCategories()
-        {
-            Category category =
-                await _readLaterPublisher.ExecuteAsync(new GetCategoriesQuery());
+        //[HttpGet]
+        //public async Task<IActionResult> GetCategories()
+        //{
+        //    Category category =
+        //        await _readLaterPublisher.ExecuteAsync(new GetCategoriesQuery());
 
-            return Ok(category);
-        }
+        //    return Ok(category);
+        //}
 
         [HttpGet("bookmarks")]
         public async Task<IActionResult> GetBookmarks()

@@ -11,7 +11,7 @@
         {
             builder.ToTable("Bookmark", "dbo");
 
-            builder.HasKey(x => x.ID);
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Uid).HasColumnName("Uid").HasColumnType("uniqueidentifier").IsRequired();
             builder.Property(x => x.CreatedOn).HasColumnName("CreatedOn").HasColumnType("datetime2").IsRequired();
