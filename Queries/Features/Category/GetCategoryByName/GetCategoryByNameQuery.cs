@@ -14,7 +14,7 @@
     using Shared.Mediator;
 
     /// <summary>
-    /// Returns category by id.
+    /// Returns category by name.
     /// </summary>
     public record GetCategoryByNameQuery(string Name) : IQuery<CategoryDto>;
 
