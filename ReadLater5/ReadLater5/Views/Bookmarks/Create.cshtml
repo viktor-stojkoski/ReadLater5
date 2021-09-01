@@ -4,7 +4,12 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<h2>Create Bookmark</h2>
 
 @using (Html.BeginForm())
 {
@@ -15,7 +20,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            
+
             @* URL *@
             @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -29,6 +34,20 @@
                 @Html.TextAreaFor(model => model.ShortDescription, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
             </div>
+
+            <label class="control-label col-md-2">Pick a category</label>
+            <div class="col-md-10">
+                <select class="form-control" id="categorySelect" name="CategoryId">
+                    @{
+                        foreach (Queries.Features.Category.GetCategories.CategoryDto category
+                            in ViewBag.Categories as IEnumerable<Queries.Features.Category.GetCategories.CategoryDto>)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+
+                    }
+                </select>
+            </div>
         </div>
 
         <div class="form-group">
@@ -37,8 +56,74 @@
             </div>
         </div>
     </div>
+
 }
+
+<h2>Create category</h2>
+<form id="createCategoryForm">
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Category</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">Name</label>
+            <div class="col-md-10">
+                <input type="text" id="categoryName" class="form-control" name="Name" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+</form>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section scripts
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script>
+
+        $(document).ready(() => {
+            $('#createCategoryForm').submit((event) => {
+
+                event.preventDefault();
+
+                const name = $('#categoryName').val();
+                const token = $('input[name="__RequestVerificationToken"]').val();
+
+                $.ajax({
+                    url: '/Categories/Create',
+                    type: 'POST',
+                    data: {
+                        Name: name,
+                        __RequestVerificationToken: token
+                    },
+                    success: () => {
+                        $.ajax({
+                            url: '/Categories/GetCategoryByName',
+                            type: 'GET',
+                            data: { name: name },
+                            success: (result) => {
+                                $('#categorySelect').append(new Option(result.name, result.id));
+                            }
+                        });
+
+                        $('#categoryName').val('');
+                    }
+                })
+            });
+        });
+
+    </script>
+}

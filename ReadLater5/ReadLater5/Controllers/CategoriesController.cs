@@ -8,6 +8,7 @@
 
     using Queries.Features.Category.GetCategories;
     using Queries.Features.Category.GetCategory;
+    using Queries.Features.Category.GetCategoryByName;
 
     using Services.Category;
 
@@ -27,6 +28,13 @@
             return View(
                 await _readLaterPublisher.ExecuteAsync(
                     new GetCategoriesQuery()));
+        }
+
+        public async Task<IActionResult> GetCategoryByNameAsync(string name)
+        {
+            return Ok(
+                await _readLaterPublisher.ExecuteAsync(
+                    new GetCategoryByNameQuery(name)));
         }
 
         public async Task<IActionResult> Details(int id)
