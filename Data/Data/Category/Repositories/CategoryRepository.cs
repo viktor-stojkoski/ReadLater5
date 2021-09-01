@@ -43,5 +43,10 @@
         {
             Insert(category.ToCategoryDb());
         }
+
+        public void Update(Category category)
+        {
+            Update(category.ToCategoryDb());
+        }
     }
 }

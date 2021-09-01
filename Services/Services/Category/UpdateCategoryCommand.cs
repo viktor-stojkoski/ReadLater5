@@ -1,6 +1,5 @@
 ﻿namespace Services.Category
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -16,34 +15,40 @@
     using Shared.Mediator;
 
     /// <summary>
-    /// Creates new category.
+    /// Updates category.
     /// </summary>
-    public record CreateCategoryCommand(string Name) : ICommand<Unit>;
+    public record UpdateCategoryCommand(int Id, string Name) : ICommand<Unit>;
 
-    public class CreateCategoryCommandHandler : ICommandHandler<CreateCategoryCommand, Unit>
+    public class UpdateCategoryCommandHandler : ICommandHandler<UpdateCategoryCommand, Unit>
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CreateCategoryCommandHandler(
-            ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+        public UpdateCategoryCommandHandler(
+            ICategoryRepository categoryRepository,
+            IUnitOfWork unitOfWork)
         {
             _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Unit> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
             if (await _categoryRepository.DoesCategoryExists(request.Name))
             {
                 throw new ReadLaterAlreadyExistsException(ErrorCodes.CategoryNameAlreadyExists);
             }
 
-            Category category = new(
-                name: request.Name,
-                createdOn: DateTime.UtcNow);
+            Category category = await _categoryRepository.GetCategoryAsync(request.Id);
 
-            _categoryRepository.Insert(category);
+            if (category is null)
+            {
+                throw new ReadLaterNotFoundException(ErrorCodes.CategoryNotFound);
+            }
+
+            category.Update(request.Name);
+
+            _categoryRepository.Update(category);
 
             await _unitOfWork.SaveAsync();
 

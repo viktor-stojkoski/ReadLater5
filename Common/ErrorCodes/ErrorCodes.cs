@@ -2,10 +2,10 @@
 {
     public static class ErrorCodes
     {
-        #region
+        #region Category
 
         public const string CategoryNotFound = "CATEGORY_NOT_FOUND";
-        public const string CategoryAlreadyExists = "CATEGORY_ALREADY_EXISTS";
+        public const string CategoryNameAlreadyExists = "CATEGORY_NAME_ALREADY_EXISTS";
 
         #endregion
     }

@@ -42,22 +42,6 @@
             return View();
         }
 
-        // POST: Categories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Create(Category category)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _categoryService.CreateCategory(category);
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(category);
-        //}
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateCategoryRequest request)
@@ -68,59 +52,40 @@
             return RedirectToAction("Index");
         }
 
-        //// GET: Categories/Edit/5
-        //public IActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new StatusCodeResult(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest);
-        //    }
-        //    Category category = _categoryService.GetCategory((int)id);
-        //    if (category == null)
-        //    {
-        //        return new StatusCodeResult(Microsoft.AspNetCore.Http.StatusCodes.Status404NotFound);
-        //    }
-        //    return View(category);
-        //}
+        public async Task<IActionResult> Edit(int id)
+        {
+            return View(
+                await _readLaterPublisher.ExecuteAsync(
+                    new GetCategoryQuery(id)));
+        }
 
-        //// POST: Categories/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Edit(Category category)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _categoryService.UpdateCategory(category);
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(category);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(UpdateCategoryRequest request)
+        {
+            await _readLaterPublisher.ExecuteAsync(
+                new UpdateCategoryCommand(
+                    Id: request.Id,
+                    Name: request.Name));
 
-        //// GET: Categories/Delete/5
-        //public IActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new StatusCodeResult(Microsoft.AspNetCore.Http.StatusCodes.Status400BadRequest);
-        //    }
-        //    Category category = _categoryService.GetCategory((int)id);
-        //    if (category == null)
-        //    {
-        //        return new StatusCodeResult(Microsoft.AspNetCore.Http.StatusCodes.Status404NotFound);
-        //    }
-        //    return View(category);
-        //}
+            return RedirectToAction("Details", new { request.Id });
+        }
 
-        //// POST: Categories/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult DeleteConfirmed(int id)
-        //{
-        //    Category category = _categoryService.GetCategory(id);
-        //    _categoryService.DeleteCategory(category);
-        //    return RedirectToAction("Index");
-        //}
+        public async Task<IActionResult> Delete(int id)
+        {
+            return View(
+                await _readLaterPublisher.ExecuteAsync(
+                    new GetCategoryQuery(id)));
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _readLaterPublisher.ExecuteAsync(
+                new DeleteCategoryCommand(Id: id));
+
+            return RedirectToAction("Index");
+        }
     }
 }
