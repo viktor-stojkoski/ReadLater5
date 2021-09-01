@@ -6,6 +6,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
+    using Queries.Features.Bookmark.GetBookmark;
     using Queries.Features.Bookmark.GetBookmarks;
     using Queries.Features.Category.GetCategories;
 
@@ -29,12 +30,12 @@
                     new GetBookmarksQuery()));
         }
 
-        //public async Task<IActionResult> Details(int id)
-        //{
-        //    return View(
-        //        await _readLaterPublisher.ExecuteAsync(
-        //            new GetBookMarkQuery(id)));
-        //}
+        public async Task<IActionResult> Details(int id)
+        {
+            return View(
+                await _readLaterPublisher.ExecuteAsync(
+                    new GetBookmarkQuery(id)));
+        }
 
         public async Task<IActionResult> Create()
         {
