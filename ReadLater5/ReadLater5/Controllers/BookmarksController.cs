@@ -2,9 +2,13 @@
 {
     using System.Threading.Tasks;
 
+    using Contracts.Bookmark.Requests;
+
     using Microsoft.AspNetCore.Mvc;
 
     using Queries.Features.Bookmark.GetBookmarks;
+
+    using Services.Bookmark;
 
     using Shared.Mediator;
 
@@ -31,18 +35,23 @@
         //            new GetBookMarkQuery(id)));
         //}
 
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-        //public async Task<IActionResult> Create(CreateBookmarkRequest request)
-        //{
-        //    await _readLaterPublisher.ExecuteAsync(
-        //        new CreateBookmarkCommand());
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(CreateBookmarkRequest request)
+        {
+            await _readLaterPublisher.ExecuteAsync(
+                new CreateBookmarkCommand(
+                    CategoryId: request.CategoryId,
+                    ShortDescription: request.ShortDescription,
+                    Url: request.Url));
 
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
 
         //public async Task<IActionResult> Edit(int id)
         //{

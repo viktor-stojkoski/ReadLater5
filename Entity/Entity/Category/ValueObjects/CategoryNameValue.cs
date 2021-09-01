@@ -30,10 +30,7 @@
             Value = name;
         }
 
-        public static implicit operator string(CategoryNameValue name)
-        {
-            return name.Value;
-        }
+        public static implicit operator string(CategoryNameValue name) => name.Value;
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
