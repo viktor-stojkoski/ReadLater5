@@ -1,11 +1,7 @@
 ﻿namespace ReadLater5.Controllers
 {
-    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-
-    using Queries.Entities;
-    using Queries.Features.Bookmark.GetBookmarks;
 
     using Shared.Mediator;
 
@@ -29,13 +25,13 @@
         //    return Ok(category);
         //}
 
-        [HttpGet("bookmarks")]
-        public async Task<IActionResult> GetBookmarks()
-        {
-            Bookmark bookmark =
-                await _readLaterPublisher.ExecuteAsync(new GetBookmarksQuery());
+        //[HttpGet("bookmarks")]
+        //public async Task<IActionResult> GetBookmarks()
+        //{
+        //    Bookmark bookmark =
+        //        await _readLaterPublisher.ExecuteAsync(new GetBookmarksQuery());
 
-            return Ok(bookmark);
-        }
+        //    return Ok(bookmark);
+        //}
     }
 }

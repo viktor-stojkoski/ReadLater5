@@ -4,7 +4,7 @@
 
     public class Bookmark : Entity
     {
-        public string URL { get; set; }
+        public string Url { get; set; }
 
         public string ShortDescription { get; set; }
 
