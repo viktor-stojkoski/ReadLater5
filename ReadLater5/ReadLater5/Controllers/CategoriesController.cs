@@ -60,7 +60,7 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(UpdateCategoryRequest request)
         {
             await _readLaterPublisher.ExecuteAsync(

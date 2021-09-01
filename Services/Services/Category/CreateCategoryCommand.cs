@@ -26,7 +26,8 @@
         private readonly IUnitOfWork _unitOfWork;
 
         public CreateCategoryCommandHandler(
-            ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+            ICategoryRepository categoryRepository,
+            IUnitOfWork unitOfWork)
         {
             _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;

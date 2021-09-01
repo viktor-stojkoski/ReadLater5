@@ -34,16 +34,12 @@
 
         public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
-            if (await _categoryRepository.DoesCategoryExists(request.Name))
-            {
-                throw new ReadLaterAlreadyExistsException(ErrorCodes.CategoryNameAlreadyExists);
-            }
-
             Category category = await _categoryRepository.GetCategoryAsync(request.Id);
 
-            if (category is null)
+            if (request.Name != category.Name
+                    && await _categoryRepository.DoesCategoryExists(request.Name))
             {
-                throw new ReadLaterNotFoundException(ErrorCodes.CategoryNotFound);
+                throw new ReadLaterAlreadyExistsException(ErrorCodes.CategoryNameAlreadyExists);
             }
 
             category.Update(request.Name);

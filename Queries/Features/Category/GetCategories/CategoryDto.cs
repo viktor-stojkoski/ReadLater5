@@ -8,7 +8,7 @@
         public int Id { get; set; }
 
         /// <summary>
-        /// Category's name
+        /// Category's name.
         /// </summary>
         public string Name { get; set; }
     }

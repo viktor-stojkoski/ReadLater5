@@ -10,7 +10,7 @@ namespace ReadLater5
     using ReadLater5.Middleware.ExceptionHandlers;
     using ReadLater5.Registers;
 
-    using Storage;
+    using Storage.Infrastructure.Context;
 
     public class Startup
     {
