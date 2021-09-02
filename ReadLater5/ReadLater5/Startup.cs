@@ -50,6 +50,8 @@ namespace ReadLater5
 
             app.UseRouting();
 
+            app.UseCors("AllowAll");
+
             app.UseAuthentication();
             app.UseAuthorization();
 
