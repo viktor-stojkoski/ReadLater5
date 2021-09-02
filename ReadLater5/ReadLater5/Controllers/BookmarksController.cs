@@ -4,6 +4,7 @@
 
     using Contracts.Bookmark.Requests;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Queries.Features.Bookmark.GetBookmark;
@@ -14,6 +15,7 @@
 
     using Shared.Mediator;
 
+    [Authorize]
     public class BookmarksController : Controller
     {
         private readonly IReadLaterPublisher _readLaterPublisher;
@@ -96,7 +98,7 @@
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _readLaterPublisher.ExecuteAsync(
-                new DeleteBookmarkCommand(Id: id));
+                new DeleteBookmarkCommand(id));
 
             return RedirectToAction("Index");
         }

@@ -4,6 +4,7 @@
 
     using Contracts.Category.Requests;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Queries.Features.Category.GetCategories;
@@ -14,6 +15,7 @@
 
     using Shared.Mediator;
 
+    [Authorize]
     public class CategoriesController : Controller
     {
         private readonly IReadLaterPublisher _readLaterPublisher;
@@ -90,7 +92,7 @@
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _readLaterPublisher.ExecuteAsync(
-                new DeleteCategoryCommand(Id: id));
+                new DeleteCategoryCommand(id));
 
             return RedirectToAction("Index");
         }

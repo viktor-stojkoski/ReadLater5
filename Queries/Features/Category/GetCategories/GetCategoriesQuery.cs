@@ -11,6 +11,7 @@
     using Queries.Infrastructure.Context;
 
     using Shared.Mediator;
+    using Shared.User.Interfaces;
 
     /// <summary>
     /// Returns all categories.
@@ -20,15 +21,20 @@
     public class GetCategoriesQueryHandler : IQueryHandler<GetCategoriesQuery, IReadOnlyList<CategoryDto>>
     {
         private readonly IReadLaterReadonlyDbContext _dbContext;
+        private readonly ICurrentUser _currentUser;
 
-        public GetCategoriesQueryHandler(IReadLaterReadonlyDbContext dbContext)
+        public GetCategoriesQueryHandler(
+            IReadLaterReadonlyDbContext dbContext,
+            ICurrentUser currentUser)
         {
             _dbContext = dbContext;
+            _currentUser = currentUser;
         }
 
         public async Task<IReadOnlyList<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
             return await _dbContext.AllNoTrackedOf<Category>()
+                .Where(category => category.UserId == _currentUser.Id)
                 .Select(category => new CategoryDto
                 {
                     Id = category.Id,

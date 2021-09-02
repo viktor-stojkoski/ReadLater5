@@ -20,10 +20,10 @@
         public BookmarkRepository(IReadLaterDbContext readLaterDbContext)
             : base(readLaterDbContext) { }
 
-        public async Task<Bookmark> GetBookmarkAsync(int id)
+        public async Task<Bookmark> GetBookmarkAsync(string userId, int id)
         {
             Entities.Bookmark dbBookmark = await AllNoTrackedOf()
-                .SingleOrDefaultAsync(x => x.Id == id);
+                .SingleOrDefaultAsync(x => x.UserId == userId && x.Id == id);
 
             if (dbBookmark is null)
             {

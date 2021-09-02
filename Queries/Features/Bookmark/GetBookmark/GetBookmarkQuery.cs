@@ -12,6 +12,7 @@
     using Shared.ErrorCodes;
     using Shared.Exceptions;
     using Shared.Mediator;
+    using Shared.User.Interfaces;
 
     /// <summary>
     /// Returns bookmark with the given id.
@@ -21,16 +22,21 @@
     public class GetBookmarkQueryHandler : IQueryHandler<GetBookmarkQuery, BookmarkDto>
     {
         private readonly IReadLaterReadonlyDbContext _dbContext;
+        private readonly ICurrentUser _currentUser;
 
-        public GetBookmarkQueryHandler(IReadLaterReadonlyDbContext dbContext)
+        public GetBookmarkQueryHandler(
+            IReadLaterReadonlyDbContext dbContext,
+            ICurrentUser currentUser)
         {
             _dbContext = dbContext;
+            _currentUser = currentUser;
         }
 
         public async Task<BookmarkDto> Handle(GetBookmarkQuery request, CancellationToken cancellationToken)
         {
             BookmarkDto bookmark = await _dbContext.AllNoTrackedOf<Bookmark>()
-                .Where(bookmark => bookmark.Id == request.Id)
+                .Where(bookmark => bookmark.UserId == _currentUser.Id
+                    && bookmark.Id == request.Id)
                 .Include(bookmark => bookmark.Category)
                 .Select(bookmark => new BookmarkDto
                 {

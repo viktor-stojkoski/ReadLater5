@@ -11,6 +11,7 @@
         public static IServiceCollection RegisterSettings(this IServiceCollection services)
         {
             services.AddSingleton<IConnectionStringSettings, ConnectionStringSettings>();
+            services.AddSingleton<IAuthSettings, AuthSettings>();
 
             return services;
         }

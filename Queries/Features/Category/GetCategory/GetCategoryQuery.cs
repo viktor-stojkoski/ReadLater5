@@ -12,6 +12,7 @@
     using Shared.ErrorCodes;
     using Shared.Exceptions;
     using Shared.Mediator;
+    using Shared.User.Interfaces;
 
     /// <summary>
     /// Returns category by id.
@@ -21,16 +22,21 @@
     public class GetCategoryQueryHandler : IQueryHandler<GetCategoryQuery, CategoryDto>
     {
         private readonly IReadLaterReadonlyDbContext _dbContext;
+        private readonly ICurrentUser _currentUser;
 
-        public GetCategoryQueryHandler(IReadLaterReadonlyDbContext dbContext)
+        public GetCategoryQueryHandler(
+            IReadLaterReadonlyDbContext dbContext,
+            ICurrentUser currentUser)
         {
             _dbContext = dbContext;
+            _currentUser = currentUser;
         }
 
         public async Task<CategoryDto> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
         {
             CategoryDto category = await _dbContext.AllNoTrackedOf<Category>()
-                .Where(category => category.Id == request.Id)
+                .Where(category => category.UserId == _currentUser.Id
+                    && category.Id == request.Id)
                 .Select(category => new CategoryDto
                 {
                     Id = category.Id,

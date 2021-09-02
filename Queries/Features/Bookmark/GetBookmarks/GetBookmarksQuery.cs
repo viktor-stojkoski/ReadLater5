@@ -11,6 +11,7 @@
     using Queries.Infrastructure.Context;
 
     using Shared.Mediator;
+    using Shared.User.Interfaces;
 
     /// <summary>
     /// Returns all bookmarks.
@@ -20,15 +21,20 @@
     public class GetBookmarksQueryHandler : IQueryHandler<GetBookmarksQuery, IReadOnlyList<BookmarkDto>>
     {
         private readonly IReadLaterReadonlyDbContext _dbContext;
+        private readonly ICurrentUser _currentUser;
 
-        public GetBookmarksQueryHandler(IReadLaterReadonlyDbContext dbContext)
+        public GetBookmarksQueryHandler(
+            IReadLaterReadonlyDbContext dbContext,
+            ICurrentUser currentUser)
         {
             _dbContext = dbContext;
+            _currentUser = currentUser;
         }
 
         public async Task<IReadOnlyList<BookmarkDto>> Handle(GetBookmarksQuery request, CancellationToken cancellationToken)
         {
             return await _dbContext.AllNoTrackedOf<Bookmark>()
+                .Where(bookmark => bookmark.UserId == _currentUser.Id)
                 .Select(bookmark => new BookmarkDto
                 {
                     Id = bookmark.Id,

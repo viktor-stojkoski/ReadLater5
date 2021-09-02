@@ -20,8 +20,10 @@
             builder.Property(x => x.Url).HasColumnName("Url").HasColumnType("nvarchar").HasMaxLength(500);
             builder.Property(x => x.ShortDescription).HasColumnName("ShortDescription").HasColumnType("nvarchar(max)");
             builder.Property(x => x.CategoryId).HasColumnName("CategoryId").HasColumnType("int");
+            builder.Property(x => x.UserId).HasColumnName("UserId").HasColumnType("nvarchar").IsRequired();
 
             builder.HasOne(x => x.Category).WithMany(x => x.Bookmarks).HasForeignKey(x => x.CategoryId);
+            builder.HasOne(x => x.User).WithMany(x => x.Bookmarks).HasForeignKey(x => x.UserId);
         }
     }
 }

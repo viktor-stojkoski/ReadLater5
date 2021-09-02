@@ -17,5 +17,15 @@
         public const string BookmarkUrlInvalidLength = "BOOKMARK_URL_INVALID_LENGTH";
 
         #endregion
+
+        #region User
+
+        public const string UserNotFound = "USER_NOT_FOUND";
+        public const string UserUserNameInvalidLength = "USER_USER_NAME_INVALID_LENGTH";
+        public const string UserEmailInvalid = "USER_EMAIL_INVALID";
+        public const string UserEmailInvalidLength = "USER_EMAIL_INVALID_LENGTH";
+        public const string UserNoPasswordSet = "USER_NO_PASSWORD_SET";
+
+        #endregion
     }
 }

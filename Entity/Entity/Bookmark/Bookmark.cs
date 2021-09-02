@@ -20,6 +20,11 @@
         public string ShortDescription { get; private set; }
 
         /// <summary>
+        /// Id of the owning user.
+        /// </summary>
+        public string UserId { get; private set; }
+
+        /// <summary>
         /// Id of the owning category.
         /// </summary>
         public int? CategoryId { get; private set; }
@@ -32,6 +37,7 @@
             Guid uid,
             DateTime createdOn,
             DateTime? deletedOn,
+            string userId,
             int? categoryId,
             string url,
             string shortDescription)
@@ -42,6 +48,7 @@
             Uid = uid;
             CreatedOn = createdOn;
             DeletedOn = deletedOn;
+            UserId = userId;
             CategoryId = categoryId;
             Url = urlValue;
             ShortDescription = shortDescription;
@@ -52,6 +59,7 @@
         /// </summary>
         public Bookmark(
             DateTime createdOn,
+            string userId,
             int? categoryId,
             string url,
             string shortDescription)
@@ -61,6 +69,7 @@
             Uid = Guid.NewGuid();
             CreatedOn = createdOn;
             CategoryId = categoryId;
+            UserId = userId;
             Url = urlValue;
             ShortDescription = shortDescription;
         }

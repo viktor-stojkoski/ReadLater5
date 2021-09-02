@@ -18,6 +18,9 @@
             builder.Property(x => x.DeletedOn).HasColumnName("DeletedOn").HasColumnType("datetime2");
 
             builder.Property(x => x.Name).HasColumnName("Name").HasColumnType("nvarchar").HasMaxLength(50);
+            builder.Property(x => x.UserId).HasColumnName("UserId").HasColumnType("nvarchar").IsRequired();
+
+            builder.HasOne(x => x.User).WithMany(x => x.Categories).HasForeignKey(x => x.UserId);
         }
     }
 }

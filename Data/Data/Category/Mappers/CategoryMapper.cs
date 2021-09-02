@@ -9,6 +9,7 @@
                 uid: dbCategory.Uid,
                 createdOn: dbCategory.CreatedOn,
                 deletedOn: dbCategory.DeletedOn,
+                userId: dbCategory.UserId,
                 name: dbCategory.Name);
 
         internal static Entities.Category ToCategoryDb(this Category domainCategory) =>
@@ -16,6 +17,7 @@
                 uid: domainCategory.Uid,
                 createdOn: domainCategory.CreatedOn,
                 deletedOn: domainCategory.DeletedOn,
+                userId: domainCategory.UserId,
                 name: domainCategory.Name);
     }
 }

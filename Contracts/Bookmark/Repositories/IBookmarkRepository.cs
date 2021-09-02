@@ -9,7 +9,7 @@
         /// <summary>
         /// Returns bookmark by id.
         /// </summary>
-        Task<Bookmark> GetBookmarkAsync(int id);
+        Task<Bookmark> GetBookmarkAsync(string userId, int id);
 
         /// <summary>
         /// Inserts new bookmark.
