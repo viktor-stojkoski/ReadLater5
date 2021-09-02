@@ -13,6 +13,7 @@
     using Shared.Exceptions;
 
     using Storage.Infrastructure.Context;
+    using Storage.User.Mappers;
 
     public class ApplicationUserRepository : IApplicationUserRepository
     {
@@ -25,8 +26,8 @@
 
         public async Task<ApplicationUser> GetUserByEmailAsync(string email)
         {
-            ApplicationUser applicationUser =
-                await _dbContext.Set<ApplicationUser>()
+            Entities.ApplicationUser applicationUser =
+                await _dbContext.Set<Entities.ApplicationUser>()
                     .Where(x => x.DeletedOn == null).AsNoTracking()
                     .SingleOrDefaultAsync(x => x.Email == email);
 
@@ -35,7 +36,7 @@
                 throw new ReadLaterNotFoundException(ErrorCodes.UserNotFound);
             }
 
-            return applicationUser;
+            return applicationUser.ToApplicationUserDomain();
         }
     }
 }

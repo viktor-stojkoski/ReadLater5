@@ -8,7 +8,7 @@
     using Shared.ErrorCodes;
     using Shared.Exceptions;
 
-    public class EmailValue : ValueObject
+    public sealed class EmailValue : ValueObject
     {
         private const uint MaxLength = 256;
         private const string EmailAddressRegex = @"^[^\s@]+@[^\s@]+\.[^\s@]+$";

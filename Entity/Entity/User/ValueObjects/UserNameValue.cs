@@ -7,7 +7,7 @@
     using Shared.ErrorCodes;
     using Shared.Exceptions;
 
-    public class UserNameValue : ValueObject
+    public sealed class UserNameValue : ValueObject
     {
         private const uint MaxLength = 256;
 

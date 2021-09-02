@@ -56,7 +56,7 @@
         public async Task<IActionResult> Create(CreateCategoryRequest request)
         {
             await _readLaterPublisher.ExecuteAsync(
-                new CreateCategoryCommand(request.UserId, request.Name));
+                new CreateCategoryCommand(request.Name));
 
             return RedirectToAction("Index");
         }
@@ -74,7 +74,6 @@
         {
             await _readLaterPublisher.ExecuteAsync(
                 new UpdateCategoryCommand(
-                    UserId: request.UserId,
                     Id: request.Id,
                     Name: request.Name));
 
@@ -92,9 +91,8 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            // TODO: Fix this.
             await _readLaterPublisher.ExecuteAsync(
-                new DeleteCategoryCommand("", id));
+                new DeleteCategoryCommand(id));
 
             return RedirectToAction("Index");
         }

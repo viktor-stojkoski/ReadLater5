@@ -4,8 +4,6 @@
 
     public class UpdateCategoryRequest
     {
-        public string UserId { get; set; }
-
         public int Id { get; set; }
 
         [StringLength(50)]

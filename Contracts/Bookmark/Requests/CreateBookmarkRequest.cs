@@ -4,8 +4,6 @@
 
     public class CreateBookmarkRequest
     {
-        public string UserId { get; set; }
-
         [Url]
         public string Url { get; set; }
 

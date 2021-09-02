@@ -12,6 +12,7 @@
     using Shared.ErrorCodes;
     using Shared.Exceptions;
     using Shared.Mediator;
+    using Shared.User.Interfaces;
 
     /// <summary>
     /// Returns category by name.
@@ -21,16 +22,21 @@
     public class GetCategoryByNameQueryHandler : IQueryHandler<GetCategoryByNameQuery, CategoryDto>
     {
         private readonly IReadLaterReadonlyDbContext _dbContext;
+        private readonly ICurrentUser _currentUser;
 
-        public GetCategoryByNameQueryHandler(IReadLaterReadonlyDbContext dbContext)
+        public GetCategoryByNameQueryHandler(
+            IReadLaterReadonlyDbContext dbContext,
+            ICurrentUser currentUser)
         {
             _dbContext = dbContext;
+            _currentUser = currentUser;
         }
 
         public async Task<CategoryDto> Handle(GetCategoryByNameQuery request, CancellationToken cancellationToken)
         {
             CategoryDto category = await _dbContext.AllNoTrackedOf<Category>()
-                .Where(category => category.Name.ToUpper() == request.Name.ToUpper())
+                .Where(category => category.Name.ToUpper() == request.Name.ToUpper()
+                    && category.UserId == _currentUser.Id)
                 .Select(category => new CategoryDto
                 {
                     Id = category.Id,

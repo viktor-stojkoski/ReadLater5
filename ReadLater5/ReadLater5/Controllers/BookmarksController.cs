@@ -54,7 +54,6 @@
         {
             await _readLaterPublisher.ExecuteAsync(
                 new CreateBookmarkCommand(
-                    UserId: request.UserId,
                     CategoryId: request.CategoryId,
                     ShortDescription: request.ShortDescription,
                     Url: request.Url));
@@ -79,7 +78,6 @@
         {
             await _readLaterPublisher.ExecuteAsync(
                 new UpdateBookmarkCommand(
-                    UserId: request.UserId,
                     Id: request.Id,
                     Url: request.Url,
                     ShortDescription: request.ShortDescription,
@@ -100,7 +98,7 @@
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _readLaterPublisher.ExecuteAsync(
-                new DeleteBookmarkCommand("", id));
+                new DeleteBookmarkCommand(id));
 
             return RedirectToAction("Index");
         }

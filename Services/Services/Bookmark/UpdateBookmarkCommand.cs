@@ -13,12 +13,12 @@
     using MediatR;
 
     using Shared.Mediator;
+    using Shared.User.Interfaces;
 
     /// <summary>
     /// Updates bookmark with the given id.
     /// </summary>
     public record UpdateBookmarkCommand(
-        string UserId,
         int Id,
         string Url,
         string ShortDescription,
@@ -29,28 +29,31 @@
         private readonly IBookmarkRepository _bookmarkRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ICurrentUser _currentUser;
 
         public UpdateBookmarkCommandHandler(
             IBookmarkRepository bookmarkRepository,
             ICategoryRepository categoryRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            ICurrentUser currentUser)
         {
             _bookmarkRepository = bookmarkRepository;
             _categoryRepository = categoryRepository;
             _unitOfWork = unitOfWork;
+            _currentUser = currentUser;
         }
 
         public async Task<Unit> Handle(UpdateBookmarkCommand request, CancellationToken cancellationToken)
         {
             Bookmark bookmark =
-                await _bookmarkRepository.GetBookmarkAsync(request.UserId, request.Id);
+                await _bookmarkRepository.GetBookmarkAsync(_currentUser.Id, request.Id);
 
             int? categoryId = bookmark.CategoryId;
 
             if (categoryId != request.CategoryId)
             {
                 Category category =
-                    await _categoryRepository.GetCategoryAsync(request.UserId, request.CategoryId);
+                    await _categoryRepository.GetCategoryAsync(_currentUser.Id, request.CategoryId);
 
                 categoryId = category.Id;
             }

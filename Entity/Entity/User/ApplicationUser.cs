@@ -10,6 +10,11 @@
         private ApplicationUser() { }
 
         /// <summary>
+        /// User's id.
+        /// </summary>
+        public new string Id { get; private set; }
+
+        /// <summary>
         /// User's user name.
         /// </summary>
         public UserNameValue UserName { get; private set; }
@@ -28,7 +33,7 @@
         /// Only for mapping DB to Domain.
         /// </summary>
         public ApplicationUser(
-            int id,
+            string id,
             Guid uid,
             DateTime createdOn,
             DateTime? deletedOn,
