@@ -17,7 +17,7 @@
     /// <summary>
     /// Updates category.
     /// </summary>
-    public record UpdateCategoryCommand(int Id, string Name) : ICommand<Unit>;
+    public record UpdateCategoryCommand(string UserId, int Id, string Name) : ICommand<Unit>;
 
     public class UpdateCategoryCommandHandler : ICommandHandler<UpdateCategoryCommand, Unit>
     {
@@ -34,10 +34,11 @@
 
         public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
-            Category category = await _categoryRepository.GetCategoryAsync(request.Id);
+            Category category =
+                await _categoryRepository.GetCategoryAsync(request.UserId, request.Id);
 
             if (request.Name != category.Name
-                    && await _categoryRepository.DoesCategoryExists(request.Name))
+                    && await _categoryRepository.DoesCategoryExists(request.UserId, request.Name))
             {
                 throw new ReadLaterAlreadyExistsException(ErrorCodes.CategoryNameAlreadyExists);
             }

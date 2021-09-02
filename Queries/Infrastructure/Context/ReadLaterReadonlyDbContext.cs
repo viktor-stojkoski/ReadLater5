@@ -28,6 +28,7 @@
 
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new BookmarkConfiguration());
+            modelBuilder.ApplyConfiguration(new ApplicationUserConfiguration());
         }
     }
 }

@@ -19,6 +19,7 @@
     /// Creates new bookmark.
     /// </summary>
     public record CreateBookmarkCommand(
+        string UserId,
         string Url,
         string ShortDescription,
         int CategoryId) : ICommand<Unit>;
@@ -42,9 +43,10 @@
         public async Task<Unit> Handle(CreateBookmarkCommand request, CancellationToken cancellationToken)
         {
             Category category =
-                await _categoryRepository.GetCategoryAsync(request.CategoryId);
+                await _categoryRepository.GetCategoryAsync(request.UserId, request.CategoryId);
 
             Bookmark bookmark = new(
+                userId: request.UserId,
                 createdOn: DateTime.UtcNow,
                 categoryId: category.Id,
                 url: request.Url,

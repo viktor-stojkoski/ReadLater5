@@ -4,6 +4,8 @@
 
     public class UpdateBookmarkRequest
     {
+        public string UserId { get; set; }
+
         public int Id { get; set; }
 
         [Url]

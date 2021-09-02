@@ -16,7 +16,7 @@
     /// <summary>
     /// Deletes bookmark.
     /// </summary>
-    public record DeleteBookmarkCommand(int Id) : ICommand<Unit>;
+    public record DeleteBookmarkCommand(string UserId, int Id) : ICommand<Unit>;
 
     public class DeleteBookmarkCommandHandler : ICommandHandler<DeleteBookmarkCommand, Unit>
     {
@@ -33,7 +33,8 @@
 
         public async Task<Unit> Handle(DeleteBookmarkCommand request, CancellationToken cancellationToken)
         {
-            Bookmark bookmark = await _bookmarkRepository.GetBookmarkAsync(request.Id);
+            Bookmark bookmark =
+                await _bookmarkRepository.GetBookmarkAsync(request.UserId, request.Id);
 
             bookmark.Delete(DateTime.UtcNow);
 

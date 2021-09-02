@@ -9,12 +9,12 @@
         /// <summary>
         /// Returns category by id.
         /// </summary>
-        Task<Category> GetCategoryAsync(int id);
+        Task<Category> GetCategoryAsync(string userId, int id);
 
         /// <summary>
         /// Returns boolean indicating if category with given name already exists.
         /// </summary>
-        Task<bool> DoesCategoryExists(string name);
+        Task<bool> DoesCategoryExists(string userId, string name);
 
         /// <summary>
         /// Inserts new category.

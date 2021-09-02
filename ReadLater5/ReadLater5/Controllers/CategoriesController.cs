@@ -4,6 +4,7 @@
 
     using Contracts.Category.Requests;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Queries.Features.Category.GetCategories;
@@ -14,6 +15,7 @@
 
     using Shared.Mediator;
 
+    [Authorize]
     public class CategoriesController : Controller
     {
         private readonly IReadLaterPublisher _readLaterPublisher;
@@ -54,7 +56,7 @@
         public async Task<IActionResult> Create(CreateCategoryRequest request)
         {
             await _readLaterPublisher.ExecuteAsync(
-                new CreateCategoryCommand(request.Name));
+                new CreateCategoryCommand(request.UserId, request.Name));
 
             return RedirectToAction("Index");
         }
@@ -72,6 +74,7 @@
         {
             await _readLaterPublisher.ExecuteAsync(
                 new UpdateCategoryCommand(
+                    UserId: request.UserId,
                     Id: request.Id,
                     Name: request.Name));
 
@@ -89,8 +92,9 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // TODO: Fix this.
             await _readLaterPublisher.ExecuteAsync(
-                new DeleteCategoryCommand(Id: id));
+                new DeleteCategoryCommand("", id));
 
             return RedirectToAction("Index");
         }

@@ -11,6 +11,7 @@ namespace ReadLater5
     using ReadLater5.Registers;
 
     using Storage.Infrastructure.Context;
+    using Storage.User.Entities;
 
     public class Startup
     {
@@ -24,21 +25,25 @@ namespace ReadLater5
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().AddMvcOptions(options => options.EnableEndpointRouting = false);
+
             services
                 .RegisterSettings()
                 .RegisterDatabase(Configuration)
                 .RegisterRepositories()
-                .RegisterMediatr();
+                .RegisterServices()
+                .RegisterCurrentUser()
+                .RegisterMediatr()
+                .RegisterAuthentication(Configuration);
 
             //services.AddDbContext<ReadLaterDataContext>(options =>
             //   options.UseSqlServer(
             //       Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ReadLaterDbContext>();
-
-            //services.AddScoped<ICategoryService, CategoryService>();
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ReadLaterDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
         }
@@ -64,6 +69,7 @@ namespace ReadLater5
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMvc();
 
             app.UseMiddleware<ReadLaterExceptionHandler>();
 

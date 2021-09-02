@@ -25,5 +25,7 @@
         /// Entity's date and time of deletion.
         /// </summary>
         public DateTime? DeletedOn { get; protected internal set; }
+
+        protected Entity() { }
     }
 }

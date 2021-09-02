@@ -16,7 +16,7 @@
     /// <summary>
     /// Deletes category.
     /// </summary>
-    public record DeleteCategoryCommand(int Id) : ICommand<Unit>;
+    public record DeleteCategoryCommand(string UserId, int Id) : ICommand<Unit>;
 
     public class DeleteCategoryCommandHandler : ICommandHandler<DeleteCategoryCommand, Unit>
     {
@@ -33,7 +33,8 @@
 
         public async Task<Unit> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
-            Category category = await _categoryRepository.GetCategoryAsync(request.Id);
+            Category category =
+                await _categoryRepository.GetCategoryAsync(request.UserId, request.Id);
 
             category.Delete(DateTime.UtcNow);
 

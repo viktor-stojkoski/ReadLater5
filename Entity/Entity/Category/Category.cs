@@ -10,6 +10,11 @@
         private Category() { }
 
         /// <summary>
+        /// Id of the owning user.
+        /// </summary>
+        public string UserId { get; private set; }
+
+        /// <summary>
         /// Name of the category.
         /// </summary>
         public CategoryNameValue Name { get; private set; }
@@ -22,6 +27,7 @@
             Guid uid,
             DateTime createdOn,
             DateTime? deletedOn,
+            string userId,
             string name)
         {
             CategoryNameValue nameValue = new(name);
@@ -30,19 +36,21 @@
             Uid = uid;
             CreatedOn = createdOn;
             DeletedOn = deletedOn;
+            UserId = userId;
             Name = nameValue;
         }
 
         /// <summary>
         /// Creates new category.
         /// </summary>
-        public Category(string name, DateTime createdOn)
+        public Category(string userId, DateTime createdOn, string name)
         {
             CategoryNameValue nameValue = new(name);
 
             Uid = Guid.NewGuid();
             CreatedOn = createdOn;
             Name = nameValue;
+            UserId = userId;
         }
 
         /// <summary>

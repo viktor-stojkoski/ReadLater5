@@ -10,6 +10,7 @@
                 createdOn: dbBookmark.CreatedOn,
                 deletedOn: dbBookmark.DeletedOn,
                 categoryId: dbBookmark.CategoryId,
+                userId: dbBookmark.UserId,
                 url: dbBookmark.Url,
                 shortDescription: dbBookmark.ShortDescription);
 
@@ -18,6 +19,7 @@
                 uid: domainBookmark.Uid,
                 createdOn: domainBookmark.CreatedOn,
                 deletedOn: domainBookmark.DeletedOn,
+                userId: domainBookmark.UserId,
                 categoryId: domainBookmark.CategoryId,
                 url: domainBookmark.Url,
                 shortDescription: domainBookmark.ShortDescription);

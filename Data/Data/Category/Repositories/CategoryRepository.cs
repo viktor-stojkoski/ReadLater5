@@ -20,10 +20,10 @@
         public CategoryRepository(IReadLaterDbContext readLaterDbContext)
             : base(readLaterDbContext) { }
 
-        public async Task<Category> GetCategoryAsync(int id)
+        public async Task<Category> GetCategoryAsync(string userId, int id)
         {
             Entities.Category dbCategory = await AllNoTrackedOf()
-                .SingleOrDefaultAsync(x => x.Id == id);
+                .SingleOrDefaultAsync(x => x.UserId == userId && x.Id == id);
 
             if (dbCategory is null)
             {
@@ -33,10 +33,11 @@
             return dbCategory.ToCategoryDomain();
         }
 
-        public async Task<bool> DoesCategoryExists(string name)
+        public async Task<bool> DoesCategoryExists(string userId, string name)
         {
             return await AllNoTrackedOf()
-                .AnyAsync(x => x.Name.ToUpper() == name.ToUpper());
+                .AnyAsync(x => x.UserId == userId
+                    && x.Name.ToUpper() == name.ToUpper());
         }
 
         public void Insert(Category category)
