@@ -35,8 +35,8 @@
         public async Task<BookmarkDto> Handle(GetBookmarkQuery request, CancellationToken cancellationToken)
         {
             BookmarkDto bookmark = await _dbContext.AllNoTrackedOf<Bookmark>()
-                .Where(bookmark => bookmark.Id == request.Id
-                    && bookmark.UserId == _currentUser.Id)
+                .Where(bookmark => bookmark.UserId == _currentUser.Id
+                    && bookmark.Id == request.Id)
                 .Include(bookmark => bookmark.Category)
                 .Select(bookmark => new BookmarkDto
                 {

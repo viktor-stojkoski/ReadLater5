@@ -5,11 +5,15 @@
 
     using Contracts.Settings;
 
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
 
     using ReadLater5.Settings;
+
+    using Storage.Infrastructure.Context;
+    using Storage.User.Entities;
 
     public static partial class Register
     {
@@ -18,6 +22,10 @@
             IConfiguration configuration)
         {
             IAuthSettings authSettings = new AuthSettings(configuration);
+
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ReadLaterDbContext>()
+                .AddDefaultTokenProviders();
 
             services
                 .AddAuthentication()

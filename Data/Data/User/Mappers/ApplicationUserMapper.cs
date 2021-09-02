@@ -1,6 +1,5 @@
 ﻿namespace Storage.User.Mappers
 {
-
     using Entity.User;
 
     internal static class ApplicationUserMapper

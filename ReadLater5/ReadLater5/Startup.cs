@@ -2,16 +2,12 @@ namespace ReadLater5
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
     using ReadLater5.Middleware.ExceptionHandlers;
     using ReadLater5.Registers;
-
-    using Storage.Infrastructure.Context;
-    using Storage.User.Entities;
 
     public class Startup
     {
@@ -25,8 +21,6 @@ namespace ReadLater5
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().AddMvcOptions(options => options.EnableEndpointRouting = false);
-
             services
                 .RegisterSettings()
                 .RegisterDatabase(Configuration)
@@ -35,17 +29,6 @@ namespace ReadLater5
                 .RegisterCurrentUser()
                 .RegisterMediatr()
                 .RegisterAuthentication(Configuration);
-
-            //services.AddDbContext<ReadLaterDataContext>(options =>
-            //   options.UseSqlServer(
-            //       Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDatabaseDeveloperPageExceptionFilter();
-
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ReadLaterDbContext>()
-                .AddDefaultTokenProviders();
-
-            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,7 +52,6 @@ namespace ReadLater5
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseMvc();
 
             app.UseMiddleware<ReadLaterExceptionHandler>();
 

@@ -1,7 +1,6 @@
 ﻿namespace Storage.Bookmark.Entities
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
 
     using Storage.Category.Entities;
     using Storage.Common.Entities;
@@ -11,7 +10,6 @@
     {
         private Bookmark() { }
 
-        [StringLength(maximumLength: 500)]
         public string Url { get; protected internal set; }
 
         public string ShortDescription { get; protected internal set; }

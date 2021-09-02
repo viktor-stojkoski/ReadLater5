@@ -8,7 +8,6 @@
     using Storage.User.Entities;
 
     public class ReadLaterDbContext : IdentityDbContext, IReadLaterDbContext
-
     {
         public ReadLaterDbContext(DbContextOptions<ReadLaterDbContext> options)
             : base(options) { }
@@ -24,6 +23,7 @@
             modelBuilder.Entity<ApplicationUser>().Property(x => x.CreatedOn).HasColumnName("CreatedOn").HasColumnType("datetime2").IsRequired();
             modelBuilder.Entity<ApplicationUser>().Property(x => x.DeletedOn).HasColumnName("DeletedOn").HasColumnType("datetime2");
 
+            // TODO: Remove if not needed.
             //modelBuilder.Entity<Category>().HasOne(x => x.User).WithMany(x => x.Categories).HasForeignKey(x => x.UserId);
             //modelBuilder.Entity<Bookmark>().HasOne(x => x.User).WithMany(x => x.Bookmarks).HasForeignKey(x => x.UserId);
         }

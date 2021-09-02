@@ -35,8 +35,8 @@
         public async Task<CategoryDto> Handle(GetCategoryByNameQuery request, CancellationToken cancellationToken)
         {
             CategoryDto category = await _dbContext.AllNoTrackedOf<Category>()
-                .Where(category => category.Name.ToUpper() == request.Name.ToUpper()
-                    && category.UserId == _currentUser.Id)
+                .Where(category => category.UserId == _currentUser.Id
+                    && category.Name.ToUpper() == request.Name.ToUpper())
                 .Select(category => new CategoryDto
                 {
                     Id = category.Id,
