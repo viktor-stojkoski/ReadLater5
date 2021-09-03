@@ -36,7 +36,13 @@
             byte[] key = Encoding.UTF8.GetBytes(_authSettings.JwtKey);
             SecurityTokenDescriptor securityTokenDescriptor = new()
             {
-                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, id.ToString()) }),
+                Subject = new ClaimsIdentity(
+                    new[]
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, id),
+                        new Claim(ClaimTypes.Email, email),
+                        new Claim(ClaimTypes.Name, username)
+                    }),
                 Expires = expiresOn,
                 SigningCredentials = new SigningCredentials(
                     key: new SymmetricSecurityKey(key),
