@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using Contracts.Auth;
-    using Contracts.Infrastructure;
     using Contracts.User.Responses;
 
     using Microsoft.AspNetCore.Identity;
@@ -22,21 +21,15 @@
 
     public class LoginUserCommandHandler : ICommandHandler<LoginUserCommand, LoggedInUserDto>
     {
-        //private readonly IApplicationUserRepository _applicationUserRepository;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly SignInManager<Storage.User.Entities.ApplicationUser> _signInManager;
         private readonly UserManager<Storage.User.Entities.ApplicationUser> _userManager;
         private readonly IAuthService _authService;
 
         public LoginUserCommandHandler(
-            //IApplicationUserRepository applicationUserRepository,
-            IUnitOfWork unitOfWork,
             SignInManager<Storage.User.Entities.ApplicationUser> signInManager,
             UserManager<Storage.User.Entities.ApplicationUser> userManager,
             IAuthService authService)
         {
-            //_applicationUserRepository = applicationUserRepository;
-            _unitOfWork = unitOfWork;
             _signInManager = signInManager;
             _userManager = userManager;
             _authService = authService;
@@ -64,6 +57,7 @@
             }
 
             string token = StringHelper.GenerateSha256Hash(Guid.NewGuid().ToString());
+
             DateTime expiresOn = DateTime.UtcNow.AddDays(1);
 
             user.SetRefreshToken(
@@ -71,10 +65,6 @@
                 refreshTokenExpiresOn: expiresOn);
 
             await _userManager.UpdateAsync(user);
-
-            //_applicationUserRepository.Update(user);
-
-            await _unitOfWork.SaveAsync();
 
             return new LoggedInUserDto
             {
