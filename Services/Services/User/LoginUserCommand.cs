@@ -4,6 +4,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
+    using Contracts.Auth;
     using Contracts.Infrastructure;
     using Contracts.User.Responses;
 
@@ -25,17 +26,20 @@
         private readonly IUnitOfWork _unitOfWork;
         private readonly SignInManager<Storage.User.Entities.ApplicationUser> _signInManager;
         private readonly UserManager<Storage.User.Entities.ApplicationUser> _userManager;
+        private readonly IAuthService _authService;
 
         public LoginUserCommandHandler(
             //IApplicationUserRepository applicationUserRepository,
             IUnitOfWork unitOfWork,
             SignInManager<Storage.User.Entities.ApplicationUser> signInManager,
-            UserManager<Storage.User.Entities.ApplicationUser> userManager)
+            UserManager<Storage.User.Entities.ApplicationUser> userManager,
+            IAuthService authService)
         {
             //_applicationUserRepository = applicationUserRepository;
             _unitOfWork = unitOfWork;
             _signInManager = signInManager;
             _userManager = userManager;
+            _authService = authService;
         }
 
         public async Task<LoggedInUserDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
@@ -60,10 +64,11 @@
             }
 
             string token = StringHelper.GenerateSha256Hash(Guid.NewGuid().ToString());
+            DateTime expiresOn = DateTime.UtcNow.AddDays(1);
 
             user.SetRefreshToken(
                 refreshToken: token,
-                DateTime.UtcNow.AddDays(1));
+                refreshTokenExpiresOn: expiresOn);
 
             await _userManager.UpdateAsync(user);
 
@@ -73,7 +78,11 @@
 
             return new LoggedInUserDto
             {
-                Token = token
+                Token = _authService.GenerateJwtToken(
+                    id: user.Id,
+                    email: user.Email,
+                    username: user.UserName,
+                    expiresOn: expiresOn)
             };
         }
     }

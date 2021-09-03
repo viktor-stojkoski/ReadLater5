@@ -4,6 +4,8 @@
 
     using Contracts.Bookmark.Requests;
 
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Queries.Features.Bookmark.GetBookmark;
@@ -15,6 +17,7 @@
 
     [Route("api/bookmarks")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class BookmarksApiController : ControllerBase
     {
         private readonly IReadLaterPublisher _readLaterPublisher;
