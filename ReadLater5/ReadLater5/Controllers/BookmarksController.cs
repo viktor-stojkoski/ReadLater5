@@ -4,7 +4,6 @@
 
     using Contracts.Bookmark.Requests;
 
-    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +15,7 @@
 
     using Shared.Mediator;
 
-    [Authorize(JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     public class BookmarksController : Controller
     {
         private readonly IReadLaterPublisher _readLaterPublisher;
