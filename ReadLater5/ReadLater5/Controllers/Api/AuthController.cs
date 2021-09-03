@@ -4,6 +4,7 @@
 
     using Contracts.User.Requests;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using Services.User;
@@ -22,12 +23,12 @@
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> LoginAsync(ApplicationUserLoginRequest request)
         {
-            await _readLaterPublisher.ExecuteAsync(
-                new LoginUserCommand(request.Email, request.Password));
-
-            return Ok();
+            return Ok(
+                await _readLaterPublisher.ExecuteAsync(
+                new LoginUserCommand(request.Email, request.Password)));
         }
     }
 }

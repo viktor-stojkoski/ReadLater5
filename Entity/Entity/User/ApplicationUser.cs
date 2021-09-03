@@ -29,6 +29,38 @@
         /// </summary>
         public string PasswordHash { get; private set; }
 
+        public string NormalizedUserName { get; private set; }
+
+        public string NormalizedEmail { get; private set; }
+
+        public bool EmailConfirmed { get; private set; }
+
+        public string SecurityStamp { get; private set; }
+
+        public string PhoneNumber { get; private set; }
+
+        public bool PhoneNumberConfirmed { get; private set; }
+
+        public bool TwoFactorEnabled { get; private set; }
+
+        public DateTimeOffset? LockoutEnd { get; private set; }
+
+        public bool LockoutEnabled { get; private set; }
+
+        public int AccessFailedCount { get; private set; }
+
+        public string Discriminator { get; private set; }
+
+        /// <summary>
+        /// User's refresh access token.
+        /// </summary>
+        public string RefreshToken { get; private set; }
+
+        /// <summary>
+        /// User's refresh access token expiring date.
+        /// </summary>
+        public DateTime? RefreshTokenExpiresOn { get; private set; }
+
         /// <summary>
         /// Only for mapping DB to Domain.
         /// </summary>
@@ -39,7 +71,20 @@
             DateTime? deletedOn,
             string userName,
             string email,
-            string passwordHash)
+            string passwordHash,
+            string refreshToken,
+            DateTime? refreshTokenExpiresOn,
+            string normalizedUserName,
+            string normalizedEmail,
+            bool emailConfirmed,
+            string securityStamp,
+            string phoneNumber,
+            bool phoneNumberConfirmed,
+            bool twoFactorEnabled,
+            DateTimeOffset? lockoutEnd,
+            bool lockoutEnabled,
+            int accessFailedCount,
+            string discriminator)
         {
             UserNameValue userNameValue = new(userName);
             EmailValue emailValue = new(email);
@@ -50,7 +95,27 @@
             DeletedOn = deletedOn;
             UserName = userNameValue;
             Email = emailValue;
+
             PasswordHash = passwordHash;
+            RefreshToken = refreshToken;
+            RefreshTokenExpiresOn = refreshTokenExpiresOn;
+            NormalizedUserName = normalizedUserName;
+            NormalizedEmail = normalizedEmail;
+            EmailConfirmed = emailConfirmed;
+            SecurityStamp = securityStamp;
+            PhoneNumber = phoneNumber;
+            PhoneNumberConfirmed = phoneNumberConfirmed;
+            TwoFactorEnabled = twoFactorEnabled;
+            LockoutEnd = lockoutEnd;
+            LockoutEnabled = lockoutEnabled;
+            AccessFailedCount = accessFailedCount;
+            Discriminator = discriminator;
+        }
+
+        public void SetRefreshToken(string refreshToken, DateTime refreshTokenExpiresOn)
+        {
+            RefreshToken = refreshToken;
+            RefreshTokenExpiresOn = refreshTokenExpiresOn;
         }
     }
 }

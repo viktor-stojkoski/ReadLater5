@@ -38,5 +38,14 @@
 
             return applicationUser.ToApplicationUserDomain();
         }
+
+        public void Update(ApplicationUser user)
+        {
+            Entities.ApplicationUser dbUser = user.ToApplicationUserDb();
+
+            _dbContext.Set<Entities.ApplicationUser>().Attach(dbUser);
+
+            _dbContext.Entry(dbUser).State = EntityState.Modified;
+        }
     }
 }

@@ -20,6 +20,8 @@
             builder.Property(x => x.UserName).HasColumnName("UserName").HasColumnType("nvarchar").HasMaxLength(256);
             builder.Property(x => x.Email).HasColumnName("Email").HasColumnType("nvarchar").HasMaxLength(256);
             builder.Property(x => x.PasswordHash).HasColumnName("PasswordHash").HasColumnType("nvarchar(max)");
+            builder.Property(x => x.RefreshToken).HasColumnName("RefreshToken").HasColumnType("nvarchar(max)");
+            builder.Property(x => x.RefreshTokenExpiresOn).HasColumnName("RefreshTokenExpiresOn").HasColumnType("datetime2");
         }
     }
 }
