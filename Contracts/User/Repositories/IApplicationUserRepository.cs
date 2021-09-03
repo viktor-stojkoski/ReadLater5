@@ -10,5 +10,10 @@
         /// Returns the user by email.
         /// </summary>
         Task<ApplicationUser> GetUserByEmailAsync(string email);
+
+        /// <summary>
+        /// Updates user.
+        /// </summary>
+        void Update(ApplicationUser user);
     }
 }

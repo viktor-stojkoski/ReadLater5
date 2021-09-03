@@ -23,7 +23,7 @@
         {
             IAuthSettings authSettings = new AuthSettings(configuration);
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ReadLaterDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -34,9 +34,8 @@
                     options.SaveToken = true;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        RequireSignedTokens = true,
-                        RequireExpirationTime = true,
-                        ValidateIssuer = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.JwtKey)),
                         ClockSkew = TimeSpan.Zero

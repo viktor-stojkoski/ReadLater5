@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Storage.Infrastructure.Context;
 
 namespace Storage.Migrations
 {
     [DbContext(typeof(ReadLaterDbContext))]
-    partial class ReadLaterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210902235216_AddedRefreshTokenToUser")]
+    partial class AddedRefreshTokenToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

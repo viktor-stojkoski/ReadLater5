@@ -25,6 +25,7 @@
         public const string UserEmailInvalid = "USER_EMAIL_INVALID";
         public const string UserEmailInvalidLength = "USER_EMAIL_INVALID_LENGTH";
         public const string UserNoPasswordSet = "USER_NO_PASSWORD_SET";
+        public const string UserPasswordDoesNotMatch = "USER_PASSWORD_DOES_NOT_MATCH";
 
         #endregion
     }
